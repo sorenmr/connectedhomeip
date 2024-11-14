@@ -169,7 +169,7 @@ class TC_CLDIM_3_1(MatterBaseTest):
         else:
             asserts.assert_equal(currentPositioning.Speed, ThreeLevelAutoEnum.Auto, "Unexpected value")
 
-        StartPosition = currentPosition
+        StartPosition = currentPositioning.Position
 
         #STEP 5a: Send Steps command
         self.step("5a")
