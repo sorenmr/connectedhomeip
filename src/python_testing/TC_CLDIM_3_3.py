@@ -54,10 +54,10 @@ class TC_CLDIM_3_3(MatterBaseTest):
     def steps_TC_CLDIM_3_3(self) -> list[TestStep]:
         steps = [
             TestStep(1, "Commissioning, already done", is_commissioning=True),
-            TestStep(2, "Send Steps command"),
+            TestStep(2, "Send Step command"),
             TestStep(3, "Wait for motion"),
             TestStep(4, "Read CurrentPositioning attribute"),
-            TestStep(5, "Send Steps command"),
+            TestStep(5, "Send Step command"),
             TestStep(6, "Read TargetPositioning attribute"),
             TestStep(7, "Wait for motion"),
             TestStep(8, "Read CurrentPositioning attribute"),
@@ -88,9 +88,9 @@ class TC_CLDIM_3_3(MatterBaseTest):
         #STEP 1: Commission DUT to TH (can be skipped if done in a preceding test)
         self.step(1)
 
-        #STEP 2: Send Steps command
+        #STEP 2: Send Step command
         self.step(2)
-        await self.send_single_cmd(cmd=Clusters.Objects.ClosureDimension.Commands.Steps(Direction=StepDirectionEnum.TowardsMax, NumberOfSteps=1), endpoint=self.endpoint)
+        await self.send_single_cmd(cmd=Clusters.Objects.ClosureDimension.Commands.Step(Direction=StepDirectionEnum.TowardsMax, NumberOfSteps=1), endpoint=self.endpoint)
 
         #STEP 3: Wait for motion
         self.step(3)
@@ -110,9 +110,9 @@ class TC_CLDIM_3_3(MatterBaseTest):
 
         StartPosition = currentPositioning.Position
 
-        #STEP 5: Send Steps command
+        #STEP 5: Send Step command
         self.step(5)
-        await self.send_single_cmd(cmd=Clusters.Objects.ClosureDimension.Commands.Steps(Direction=StepDirectionEnum.TowardsMin, NumberOfSteps=0), endpoint=self.endpoint)
+        await self.send_single_cmd(cmd=Clusters.Objects.ClosureDimension.Commands.Step(Direction=StepDirectionEnum.TowardsMin, NumberOfSteps=0), endpoint=self.endpoint)
 
         #STEP 6: Read TargetPositioning attribute
         self.step(6)
