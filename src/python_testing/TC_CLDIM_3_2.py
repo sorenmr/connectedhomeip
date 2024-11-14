@@ -56,12 +56,12 @@ class TC_CLDIM_3_2(MatterBaseTest):
             TestStep(1, "Commissioning, already done", is_commissioning=True),
             TestStep(2, "Read StepValue attribute"),
             TestStep(3, "Read LimitRange attribute"),
-            TestStep("4a", "TH sends Steps command to DUT, with Direction=TowardsMax and NumberOfSteps=65536 (0xFF)"),
+            TestStep("4a", "TH sends Step command to DUT, with Direction=TowardsMax and NumberOfSteps=65536 (0xFF)"),
             TestStep("4b", "Wait for motion"),
             TestStep("4c", "Read CurrentPositioning attribute"),
-            TestStep("5a", "Send Steps command"),
-            TestStep("5b", "Send Steps command"),
-            TestStep("5c", "Send Steps command"),            
+            TestStep("5a", "Send Step command"),
+            TestStep("5b", "Send Step command"),
+            TestStep("5c", "Send Step command"),            
             TestStep("5d", "Read TargetPositioning attribute"),
             TestStep("5e", "Wait for motion"),
             TestStep("5f", "Read CurrentPositioning attribute"),
@@ -108,9 +108,9 @@ class TC_CLDIM_3_2(MatterBaseTest):
             MinPosition = LimitRange.Min
             MaxPosition = LimitRange.Max
         
-        #STEP 4a: Send Steps command
+        #STEP 4a: Send Step command
         self.step("4a")
-        await self.send_single_cmd(cmd=Clusters.Objects.ClosureDimension.Commands.Steps(Direction=StepDirectionEnum.TowardsMax, NumberOfSteps=65536), endpoint=self.endpoint)
+        await self.send_single_cmd(cmd=Clusters.Objects.ClosureDimension.Commands.Step(Direction=StepDirectionEnum.TowardsMax, NumberOfSteps=65536), endpoint=self.endpoint)
 
         #STEP 4b: Wait for motion
         self.step("4b")
@@ -128,17 +128,17 @@ class TC_CLDIM_3_2(MatterBaseTest):
         else:
             asserts.assert_equal(currentPositioning.Speed, ThreeLevelAutoEnum.Auto, "Unexpected value")
 
-        #STEP 5a: Send Steps command
+        #STEP 5a: Send Step command
         self.step("5a")
-        await self.send_single_cmd(cmd=Clusters.Objects.ClosureDimension.Commands.Steps(Direction=StepDirectionEnum.TowardsMin, NumberOfSteps=1), endpoint=self.endpoint)
+        await self.send_single_cmd(cmd=Clusters.Objects.ClosureDimension.Commands.Step(Direction=StepDirectionEnum.TowardsMin, NumberOfSteps=1), endpoint=self.endpoint)
 
-        #STEP 5b: Send Steps command
+        #STEP 5b: Send Step command
         self.step("5b")
-        await self.send_single_cmd(cmd=Clusters.Objects.ClosureDimension.Commands.Steps(Direction=StepDirectionEnum.TowardsMin, NumberOfSteps=1), endpoint=self.endpoint)
+        await self.send_single_cmd(cmd=Clusters.Objects.ClosureDimension.Commands.Step(Direction=StepDirectionEnum.TowardsMin, NumberOfSteps=1), endpoint=self.endpoint)
 
-        #STEP 5c: Send Steps command
+        #STEP 5c: Send Step command
         self.step("5c")
-        await self.send_single_cmd(cmd=Clusters.Objects.ClosureDimension.Commands.Steps(Direction=StepDirectionEnum.TowardsMin, NumberOfSteps=1), endpoint=self.endpoint)
+        await self.send_single_cmd(cmd=Clusters.Objects.ClosureDimension.Commands.Step(Direction=StepDirectionEnum.TowardsMin, NumberOfSteps=1), endpoint=self.endpoint)
 
         #STEP 5d: Read TargetPositioning attribute
         self.step("5d")
